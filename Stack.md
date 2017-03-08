@@ -1,5 +1,7 @@
 # Stack
 
+## 数组实现栈，能存储任意类型数据
+
 - GeneralArrayStack.java
 ```java
 public class GeneralArrayStack<T>{
