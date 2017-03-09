@@ -331,3 +331,71 @@ public class BinarySearchTree {
 
 }
 ```
+- BSTTest
+```java
+package BinarySearchTree;
+
+public class BSTTest {
+    public static void main(String[] args) {
+        BinarySearchTree tree = new BinarySearchTree();
+        BSTNode node1 = new BSTNode(13);
+        BSTNode node2 = new BSTNode(10);
+        BSTNode node3 = new BSTNode(2);
+        BSTNode node4 = new BSTNode(12);
+        BSTNode node5 = new BSTNode(25);
+        BSTNode node6 = new BSTNode(20);
+        BSTNode node7 = new BSTNode(31);
+        BSTNode node8 = new BSTNode(29);
+
+        // 插入
+        tree.insert(node1);
+        tree.insert(node2);
+        tree.insert(node3);
+        tree.insert(node4);
+        tree.insert(node5);
+        tree.insert(node6);
+        tree.insert(node7);
+        tree.insert(node8);
+
+        // 查找
+
+//        BSTNode result = new BSTNode();
+//        result = tree.search(10);
+//        if(result!=null){
+//            System.out.println(result.left.key);
+//        }
+
+        // 广度优先遍历
+//        tree.BFTraversal();
+
+        // 递归先序遍历
+//        tree.PreOrderTraversal();
+
+        // 递归中序遍历
+//        tree.InOrderTraversal();
+
+        // 递归后序遍历
+//        tree.PostOrderTraversal();
+
+        // 获取树中的最小节点
+//        BSTNode result = new BSTNode();
+//        result = tree.getMinNode();
+//        if(result!=null){
+//            System.out.println(result.key);
+//        }
+
+        // 获取树中的最大节点
+//        BSTNode result = new BSTNode();
+//        result = tree.getMaxNode();
+//        if(result!=null){
+//            System.out.println(result.key);
+//        }
+
+        // 删除节点
+        boolean result = tree.delete(25);
+        System.out.println(result);
+        tree.BFTraversal();
+    }
+}
+
+```
