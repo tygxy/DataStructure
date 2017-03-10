@@ -299,8 +299,10 @@ public class BinarySearchTree {
         }
 
         // 如果删除节点为双节点
+        // 思路：找到删除节点右子树的最小值，用找到的最小值与删除节点替换，将最小值的原节点进行删除
         else{
             BSTNode followingNode = this.getFollowingNode(targetNode);
+            // 最小值与删除节点替换
             if(targetNode.key == root.key){
                 root = followingNode;
             }else if(isLeftNode){
@@ -317,10 +319,12 @@ public class BinarySearchTree {
     private BSTNode getFollowingNode(BSTNode node2Del){
         BSTNode nodeParent = node2Del;
         BSTNode node = node2Del.right;
+        // node右支的最小值
         while (node.left != null){
             nodeParent = node;
             node = node.left;
         }
+        // 删除最小值的原节点的右支
         if(node.key != node2Del.right.key){
             nodeParent.left = node.right;
         }else{
