@@ -57,20 +57,23 @@
 
 - 插入排序
 ```java
-	public static void insertSort(int[] a , int n ) {
+    public static void insertSort(int[] a , int n ) {
         int i, j, k;
         for (i = 1; i < n; i++) {
+            // 为a[i]找到前面有序区间的合适位置
             for (j=i-1; j>=0; j--){
                 if (a[j] < a[i])
                     break;
             }
+            // 如果找到一个合适的位置
             if (j!=i-1){
                 int tmp = a[i];
+                // 将比a[i]大的后移
                 for (k=i-1; k>j; k--){
                     a[k+1] = a[k];
                 }
                 a[k+1] = tmp;
             }
         }
-	}
+    }
 ```
