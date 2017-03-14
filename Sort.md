@@ -101,3 +101,29 @@
         }
     } 
 ```
+
+- 选择排序
+```java
+   public static void selectionSort(int[] a){
+        int length = a.length;
+        int i; // 有序区的末尾位置
+        int j; // 无序区的起始位置
+        int min;  // 无序区中最小元素位置
+        for (i=0; i<length; i++){
+            min = i ;
+            // 找出无序区的最小值
+            for (j=i+1; j<length; j++){
+                if (a[j] < a[min]){
+                    min = j;
+                }
+            }
+
+            // 若min!=i,则交换a[i]和a[min]
+            if (min != i){
+                int tmp = a[i];
+                a[i] = a[min];
+                a[min] = tmp;
+            }
+        }
+    }
+```
