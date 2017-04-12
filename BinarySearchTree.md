@@ -188,6 +188,78 @@ public class BinarySearchTree {
         System.out.println(p.key);
     }
 
+        /**
+     * 前序非递归遍历
+     */
+
+    public void preOrder(BSTreeNode p) {
+        Stack<BSTreeNode> stack = new Stack<BSTreeNode>();
+        while (p != null || !stack.empty()) {
+            while (p != null) {
+                System.out.println(p.val);
+                stack.push(p);
+                p = p.left;
+            }
+            if (!stack.empty()) {
+                p = stack.pop();
+                p = p.right;
+            }
+        }
+    }
+
+    /**
+     * 中序非递归遍历
+     */
+    public void inOrder(BSTreeNode p) {
+        Stack<BSTreeNode> stack = new Stack<BSTreeNode>();
+        while (p != null || !stack.empty()) {
+            while (p != null) {
+                stack.push(p);
+                p = p.left;
+            }
+
+            if (!stack.empty()) {
+                p = stack.pop();
+                System.out.println(p.val);
+                p = p.right;
+            }
+        }
+    }
+
+    /**
+     * 后序非递归遍历
+     */
+    public void postOrder(BSTreeNode p) {
+        Stack<BSTreeNode> stack = new Stack<BSTreeNode>();
+        BSTreeNode node = p;
+        while (p != null) {
+            // 左子树入栈
+            for (;p.left != null; p = p.left) {
+                stack.push(p);
+            }
+            //
+            while (p != null && (p.right == null || p.right == node)) {
+                System.out.println(p.val);
+                node = p;
+                if (stack.empty()) {
+                    return;
+                }
+                p = stack.pop();
+            }
+
+            stack.push(p);
+            p = p.right;
+        }
+    }
+
+
+
+
+
+
+
+    
+
     /**
      * 获取树中的最小值节点
      */
