@@ -127,3 +127,45 @@
         }
     }
 ```
+
+- 归并排序
+```java
+public class MergeSort {
+
+    public void sort(int[] a, int left, int right) {
+        if (left < right) {
+            int center = (left + right) / 2;
+            sort(a, left, center);
+            sort(a,center + 1, right);
+            merge(a, left, center, right);
+        }
+    }
+
+    public void merge(int[] a, int left, int center, int right) {
+        int[] tmpArr = new int[a.length];
+        int mid = center + 1;
+        int third = left;
+        int tmp = left;
+
+        while (left <= center && mid <= right) {
+            if (a[left] <= a[mid]) {
+                tmpArr[third++] = a[left++];
+            }else {
+                tmpArr[third++] = a[mid++];
+            }
+        }
+
+        while (mid <= right) {
+            tmpArr[third++] = a[mid++];
+        }
+        while (left <= center) {
+            tmpArr[third++] = a[left++];
+        }
+
+        while (tmp <= right) {
+            a[tmp] = tmpArr[tmp++];
+        }
+    }
+    
+}
+```
