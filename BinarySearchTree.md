@@ -188,7 +188,7 @@ public class BinarySearchTree {
         System.out.println(p.key);
     }
 
-        /**
+    /**
      * 前序非递归遍历
      */
 
@@ -229,26 +229,23 @@ public class BinarySearchTree {
     /**
      * 后序非递归遍历
      */
-    public void postOrder(BSTreeNode p) {
-        Stack<BSTreeNode> stack = new Stack<BSTreeNode>();
-        BSTreeNode node = p;
-        while (p != null) {
-            // 左子树入栈
-            for (;p.left != null; p = p.left) {
-                stack.push(p);
+    public void postOrder(BSTreeNode root) {
+        Stack<BSTreeNode> stack = new Stack<>();
+        Stack<BSTreeNode> output = new Stack<>();//构造一个中间栈来存储逆后序遍历的结果
+        BSTreeNode node = root;
+        while (node != null || stack.size() > 0) {
+            if (node != null) {
+                output.push(node);
+                stack.push(node);               
+                node = node.right;
+            } else {
+                node = stack.pop();             
+                node = node.left; 
             }
-            //
-            while (p != null && (p.right == null || p.right == node)) {
-                System.out.println(p.val);
-                node = p;
-                if (stack.empty()) {
-                    return;
-                }
-                p = stack.pop();
-            }
-
-            stack.push(p);
-            p = p.right;
+        }
+        // 输出结果
+        while (output.size() > 0) {
+            System.out.println(output.pop().val);
         }
     }
 
