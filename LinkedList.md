@@ -1,5 +1,375 @@
 # LinkedList
 
+## 典型单链表和部分常见操作
+- ListNode
+```java
+public class ListNode {
+    public ListNode next = null;
+    public int data;
+
+    public ListNode(int val) {
+        data = val;
+    }
+}
+```
+
+- LinkedList
+```java
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Stack;
+
+
+
+public class LinkedList {
+
+    public ListNode head = null;
+
+    /**
+     * 判断链表是否为空
+     * @return
+     */
+    public boolean isEmpty() {
+        if (head == null) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    /**
+     * 为单链表添加结点到链表尾部
+     * @param val
+     */
+    public void addNode(int val) {
+       ListNode p = new ListNode(val);
+       if (head == null) {
+           head = p;
+       }else {
+           ListNode tmp = head;
+           while (tmp.next != null) {
+               tmp = tmp.next;
+           }
+           tmp.next = p;
+       }
+    }
+
+    /**
+     * 计算链表长度
+     * @return
+     */
+    public int length() {
+        int length = 0;
+        if (head != null) {
+            ListNode p = head;
+            while (p.next != null) {
+                length += 1;
+                p = p.next;
+            }
+            length +=1;
+        }
+        return length;
+    }
+
+    /**
+     * 结点插入到单链表的指定位置
+     * @param index
+     * @param val
+     */
+    public void insertNodeByIndex(int index,int val) {
+        if (index > this.length() + 1 || index < 1) {
+            System.out.println("插入位置不合理，超过链表长度");
+        }else {
+            ListNode p = head;
+            ListNode tmp = new ListNode(val);
+            if (index == 1) {
+                tmp.next = head;
+                head = tmp;
+            } else {
+                while (index > 2) {
+                    p = p.next;
+                    index -=1;
+                }
+                tmp.next = p.next;
+                p.next = tmp;
+            }
+        }
+    }
+
+    /**
+     * 遍历显示单链表所有元素
+     */
+    public void display() {
+        ListNode p = head;
+        while (p != null) {
+            System.out.println(p.data);
+            p = p.next;
+        }
+    }
+
+    /**
+     * 从尾到头输出链表
+     */
+    public void reverseDisplay() {
+        List<Integer> list = new ArrayList<Integer>();
+        ListNode curNode = head;
+        while (curNode != null) {
+            list.add(curNode.data);
+            curNode = curNode.next;
+        }
+        for (int i = list.size() - 1; i >= 0; i--) {
+            System.out.println(list.get(i));
+        }
+
+    }
+
+    /**
+     * 链表的翻转
+     */
+    public void reverseLinkedList() {
+        ListNode newHead = head;
+        ListNode curNode = head;
+        ListNode preNode = null;
+        while (curNode != null) {
+            ListNode nextNode = curNode.next;
+            if (nextNode == null) {
+                newHead = curNode;
+            }
+            curNode.next = preNode;
+            preNode = curNode;
+            curNode = nextNode;
+        }
+        this.head = newHead;
+    }
+
+    /**
+     * 删除指定位置元素
+     * @param index
+     * @return
+     */
+    public boolean delete(int index) {
+        if (index < 1 || index > length()) {
+            System.out.println("删除位置不合理，超过链表长度");
+            return false;
+        }else {
+            ListNode tmp = head;
+            if (index == 1) {
+                head = head.next;
+                return true;
+            }
+            while (index > 2) {
+                tmp = tmp.next;
+                index -= 1;
+            }
+            tmp.next = tmp.next.next;
+            return true;
+        }
+    }
+
+    /**
+     * 单链表冒泡排序
+     */
+    public void orderLinkedList() {
+        if (length() < 1) {
+            System.out.println("链表中没有元素，无法排序");
+        }else {
+            ListNode curNode = head;
+            ListNode nextNode = null;
+            int temp = 0;
+            while (curNode != null) {
+                nextNode = curNode.next;
+                while (nextNode != null) {
+                    if (curNode.data > nextNode.data) {
+                        temp = curNode.data;
+                        curNode.data = nextNode.data;
+                        nextNode.data = temp;
+                    }
+                    nextNode = nextNode.next;
+                }
+                curNode = curNode.next;
+            }
+        }
+    }
+
+
+    /**
+     * 2.1 删除重复元素(使用额外空间)
+     */
+    public void deleteRepetitionElement() {
+        if (length() < 1) {
+            System.out.println("链表为空");
+        }else {
+            ListNode curNode = head.next;
+            ListNode preNode = head;
+            HashSet<Integer> hashSet = new HashSet<Integer>();
+            hashSet.add(preNode.data);
+            while (curNode != null) {
+                if (hashSet.contains(curNode.data)) {
+                    preNode.next = curNode.next;
+                    curNode = curNode.next;
+                }else {
+                    hashSet.add(curNode.data);
+                    curNode = curNode.next;
+                    preNode = preNode.next;
+                }
+            }
+        }
+    }
+
+    /**
+     *  2.1 删除重复元素(不能使用额外空间)
+     */
+    public void deleteRepetitionElement2() {
+        if (length() < 1) {
+            System.out.println("链表为空");
+        }else {
+            ListNode curNode = head;
+            while (curNode != null) {
+                ListNode tmp = curNode;
+                while (tmp.next != null) {
+                    if (curNode.data == tmp.next.data) {
+                        tmp.next = tmp.next.next;
+                    }else {
+                        tmp = tmp.next;
+                    }
+                }
+                curNode = curNode.next;
+            }
+        }
+    }
+
+    /**
+     * 2.2 找到倒数K个节点
+     * @param k
+     * @return
+     */
+    public ListNode findElem(int k) {
+        if ( length() < 1) {
+            System.out.println("链表为空");
+            return null;
+        }
+
+        if (k > length()) {
+            System.out.println("超过链表长度，无法取到");
+            return null;
+        }
+
+        ListNode curNode = head;
+        ListNode kNode = head;
+        while (k > 1) {
+            kNode = kNode.next;
+            k -= 1;
+        }
+        while (kNode.next != null) {
+            curNode = curNode.next;
+            kNode = kNode.next;
+        }
+        return curNode;
+    }
+
+    /**
+     * 查询中间的节点
+     * @return
+     */
+    public ListNode findMiddleElememt() {
+        ListNode slowNode = head;
+        ListNode fastNode = head;
+        while (fastNode != null && fastNode.next != null && fastNode.next.next != null) {
+            fastNode = fastNode.next.next;
+            slowNode = slowNode.next;
+        }
+        return slowNode;
+    }
+
+    /**
+     * 2.3 删除某个节点，只能访问该节点，并且无法删除尾节点
+     * @param node
+     * @return
+     */
+    public boolean deleteNode(ListNode node) {
+        if (node == null || node.next == null) {
+            return false;
+        }
+        ListNode nextNode = node.next;
+        node.data = nextNode.data;
+        node.next = nextNode.next;
+        return true;
+    }
+
+
+    /**
+     * 2.6 判断是否为环，并返回环路的开头起点
+     * @return
+     */
+    public ListNode ifListIsHoop() {
+        if (length() < 1) {
+            System.out.println("链表无元素");
+            return null;
+        }else {
+           ListNode fastNode = head;
+           ListNode slowNode = head;
+           // 找到碰撞位置，位于链表LOOP_SIZE - k步处
+           while (fastNode != null && fastNode.next != null) {
+               slowNode = slowNode.next;
+               fastNode = fastNode.next.next;
+               if (slowNode == fastNode) {
+                   break;
+               }
+           }
+           // 如果没碰撞，则无环
+           if (fastNode == null || fastNode.next == null) {
+               return null;
+           }
+           // slowNode指向head，fastNode和slowNode与环起始位置都距离K步，按相同速度前进，再次碰撞位置就是环的起点
+           slowNode = head;
+           while (slowNode != fastNode) {
+               fastNode = fastNode.next;
+               slowNode = slowNode.next;
+           }
+           return fastNode;
+        }
+    }
+
+    /**
+     * 2.7 判断是否为回文
+     * @return
+     */
+    public boolean ifListPalindrome() {
+        if (length() < 1) {
+            System.out.println("链表无元素");
+            return false;
+        }else {
+            ListNode fastNode = head;
+            ListNode slowNode = head;
+            // 链表前半部分元素入栈
+            Stack<Integer> stack = new Stack<Integer>();
+            while (fastNode != null && fastNode.next != null) {
+                stack.push(slowNode.data);
+                fastNode = fastNode.next.next;
+                slowNode = slowNode.next;
+            }
+            // 链表元素为奇数的话，跳过中间元素
+            if (fastNode != null) {
+                slowNode = slowNode.next;
+            }
+            // 判断两部分是否相同，不相同则不是回文
+            while (slowNode != null) {
+                int val = stack.pop().intValue();
+                if (val != slowNode.data) {
+                    return false;
+                }
+                slowNode = slowNode.next;
+            }
+            return true;
+        }
+    }
+
+}
+
+```
+
+## 非典型单链表
 - ListNode
 ```java
 public class ListNode {
