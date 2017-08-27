@@ -21,6 +21,28 @@ import java.util.List;
 import java.util.Stack;
 
 
+/**
+ * 目录:
+ * 1. 判断链表是否为空
+ * 2. 添加结点到链表尾部
+ * 3. 返回链表长度
+ * 4. 插入结点到链表的任意位置
+ * 5. 正序遍历链表
+ * 6. 逆序遍历链表
+ * 7. 链表反转，两种方式
+ * 8. 删除指定位置元素
+ * 9. 链表冒泡排序
+ * 10.删除重复元素，两种方式
+ * 11.找到倒数K个结点
+ * 12.返回中间结点
+ * 13.删除某个节点，只能访问该结点，无法删除尾结点
+ * 14.判断是否有环
+ * 15.判断是否有环，并返回环路的开头节点
+ * 16.判断是否为回文
+ * 17.判断两个链表是否相交
+ * 18.判断是否相交，并返回第一个交点结点
+ */
+
 
 public class LinkedList {
 
@@ -125,22 +147,44 @@ public class LinkedList {
     }
 
     /**
-     * 链表的翻转
+     * 链表的反转
      */
     public void reverseLinkedList() {
-        ListNode newHead = head;
         ListNode curNode = head;
         ListNode preNode = null;
         while (curNode != null) {
             ListNode nextNode = curNode.next;
             if (nextNode == null) {
-                newHead = curNode;
+                this.head = curNode;
             }
             curNode.next = preNode;
             preNode = curNode;
             curNode = nextNode;
         }
-        this.head = newHead;
+    }
+
+
+    /**
+     * 单链表反转，借助stack
+     */
+    public void reverseList() {
+        if (getListLength() == 0) {
+            System.out.println("链表为空");
+        } else {
+            Stack<ListNode> stack = new Stack<ListNode>();
+            ListNode tmp = head;
+            while (tmp != null) {
+                stack.push(tmp);
+                tmp = tmp.next;
+            }
+            head = stack.pop();
+            tmp = head;
+            while (!stack.isEmpty()) {
+                tmp.next = stack.pop();
+                tmp = tmp.next;
+            }
+            tmp.next = null;
+        }
     }
 
     /**
@@ -297,6 +341,27 @@ public class LinkedList {
         return true;
     }
 
+    /**
+     * 判断单链表是否有环
+     * @return
+     */
+    public boolean hasCycye() {
+        if (getListLength() == 0) {
+            System.out.println("链表无元素");
+            return false;
+        } else {
+            ListNode fastNode = head;
+            ListNode slowNode = head;
+            while (fastNode != null && fastNode.next != null) {
+                fastNode = fastNode.next.next;
+                slowNode = slowNode.next;
+                if (fastNode == slowNode) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 
     /**
      * 2.6 判断是否为环，并返回环路的开头起点
@@ -364,6 +429,82 @@ public class LinkedList {
             return true;
         }
     }
+
+    /**
+     * 判断两个单链表是否相交
+     * @param head1
+     * @param head2
+     * @return
+     */
+    public boolean isIntersect(ListNode head1, ListNode head2) {
+        if (head1 == null || head2 == null) {
+            return false;
+        }
+        ListNode tail1 = head1;
+        while (tail1.next != null) {
+            tail1 = tail1.next;
+        }
+        ListNode tail2 = head2;
+        while (tail2.next != null) {
+            tail2 = tail2.next;
+        }
+        if (tail1 == tail2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+     /**
+     * 判断是否相交，并返回第一个交点结点
+     * @param head1
+     * @param head2
+     * @return
+     */
+    public ListNode getFirstCommonNode(ListNode head1, ListNode head2) {
+        if (head1 == null || head2 == null) {
+            return null;
+        }
+        ListNode tail1 = head1;
+        ListNode tail2 = head2;
+        int length1 = 1;
+        int length2 = 1;
+        while (tail1.next != null) {
+            tail1 = tail1.next;
+            length1 += 1;
+        }
+        while (tail2.next != null) {
+            tail2 = tail2.next;
+            length2 += 1;
+        }
+        // 不相交直接返回
+        if (tail1 != tail2) {
+            return null;
+        }
+        // 略过较长链的多余部分
+        ListNode curNode1 = head1;
+        ListNode curNode2 = head2;
+        if (length1 > length2) {
+            int k = length1 - length2;
+            while (k > 0) {
+                curNode1 = curNode1.next;
+                k -= 1;
+            }
+        } else {
+            int k = length2 - length1;
+            while (k > 0) {
+                curNode2 = curNode2.next;
+                k -= 1;
+            }
+        }
+        // 一起向后遍历，直到找到交点
+        while (curNode1 != curNode2) {
+            curNode1 = curNode1.next;
+            curNode2 = curNode2.next;
+        }
+        return curNode1;
+    }
+
 
 }
 
