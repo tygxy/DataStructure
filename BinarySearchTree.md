@@ -27,22 +27,6 @@ package BinarySearchTree;
 import java.util.Queue;
 import  java.util.LinkedList;
 
-
-/**
- * 目录:
- * 1. 判断树是否为空
- * 2. 插入节点
- * 3. 查找节点并返回该节点
- * 4. 广度优先遍历
- * 5. 遍历三种方式，递归和非递归
- * 6. 找到树的最小节点
- * 7. 归返回二叉树结点个数（递归，非递归）
- * 8. 返回二叉树深度（递归，非递归）
- * 9. 将二叉查找树变为有序单链表
- * 10.二叉树第K层节点个数
- * 11.二叉树叶子结点个数
- */
-
 public class BinarySearchTree {
     private BSTNode root;
 
@@ -485,6 +469,7 @@ public class BSTTest {
 ```
 
 ## BSTree相关操作
+
 ```java
 - BSTNode
 public class BSTNode {
@@ -504,6 +489,24 @@ import java.util.LinkedList;
 /**
  * Created by guoxingyu on 2017/8/24.
  */
+
+
+ /**
+ * 目录:
+ * 1. 判断树是否为空
+ * 2. 插入节点
+ * 3. 查找节点并返回该节点
+ * 4. 广度优先遍历
+ * 5. 遍历三种方式，递归和非递归
+ * 6. 找到树的最小节点
+ * 7. 归返回二叉树结点个数（递归，非递归）
+ * 8. 返回二叉树深度（递归，非递归）
+ * 9. 将二叉查找树变为有序单链表
+ * 10.二叉树第K层节点个数
+ * 11.二叉树叶子结点个数
+ */
+
+ 
 public class BinarySearchTree {
     public BSTNode root;
 
