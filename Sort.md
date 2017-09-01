@@ -165,3 +165,51 @@ private void merge(int[] nums, int left, int center, int right) {
     }
 }
 ```
+
+- 二分查找
+```
+/**
+ * 非递归二分查找
+ * @param nums
+ * @param x
+ * @return
+ */
+public int binarySearch(int[] nums, int x) {
+    int left = 0;
+    int right = nums.length - 1;
+    int middle;
+    while (left <= right) {
+        middle = (left + right) / 2;
+        if (nums[middle] < x) {
+            left = middle + 1;
+        } else if (nums[middle] > x) {
+            right = middle - 1;
+        } else {
+            return middle;
+        }
+    }
+    return -1;
+}
+
+/**
+ * 递归二分查找
+ * @param nums
+ * @param x
+ * @param left
+ * @param right
+ * @return
+ */
+public int binarySearchRec(int[] nums, int x, int left, int right) {
+    if (left > right) {
+        return -1;
+    }
+    int middle = (left + right) / 2;
+    if (nums[middle] < x) {
+        return binarySearchRec(nums,x,middle + 1,right);
+    } else if (nums[middle] > x) {
+        return binarySearchRec(nums, x, left, middle - 1);
+    } else {
+        return middle;
+    }
+}
+```
