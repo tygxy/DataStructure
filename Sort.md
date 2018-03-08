@@ -67,23 +67,15 @@ public int partition(int[] array,int left, int right) {
     = 稳定性：稳定每次都是在前面已排好序的序列中找到适当的位置，只有小的数字会往前插入，所以原来相同的两个数字在排序后相对位置不变
 
 ```java
-public static void insertSort(int[] a , int n ) {
-    int i, j, k;
-    for (i = 1; i < n; i++) {
-        // 为a[i]找到前面有序区间的合适位置
-        for (j=i-1; j>=0; j--){
-            if (a[j] < a[i])
-                break;
+public static void insertSort(int[] array) {
+    for (int i = 2; i < array.length; i++ ) {
+        int val = array[i];
+        int j = i -1;
+        while (j >= 0 && array[j] > val) {  // array[j] > val
+            array[j+1] = array[j];
+            j--;
         }
-        // 如果找到一个合适的位置
-        if (j!=i-1){
-            int tmp = a[i];
-            // 将比a[i]大的后移
-            for (k=i-1; k>j; k--){
-                a[k+1] = a[k];
-            }
-            a[k+1] = tmp;
-        }
+        array[j+1] = val; //  array[j+1] 不是array[j]
     }
 }
 ```
