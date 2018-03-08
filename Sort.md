@@ -1,5 +1,8 @@
 # Sort
-- 冒泡排序,平均与最差情况为O(n2),存储空间为O(1)
+- 冒泡排序
+    - 时间复杂度：最坏：O(n2) 最好: O(n) 平均: O(n2) 
+    - 空间复杂度：O(1) 
+    - 稳定性：稳定，相邻的关键字两两比较，如果相等则不交换。所以排序前后的相等数字相对位置不变
 ```java
 public static void bubbleSort2(int [] a , int n){
     int i,j;
@@ -19,43 +22,50 @@ public static void bubbleSort2(int [] a , int n){
             break;
         }
     }
-
 }
 ```
 
-- 快速排序,平均情况为O(nlog(n)),最差情况为O(n2),存储空间为O(log(n))
+- 快速排序
+    - 最坏:O(n2) 最好: O(nlogn) 平均: O(nlogn) 
+    - 存储空间为O(log(n))
+    - 稳定性：不稳定 快排会将大于等于基准元素的关键词放在基准元素右边
 ```java
-public static void quickSort(int[] a, int l ,int r){
-    if (l<r){
-        int i,j,x;
-
-        i = l;
-        j = r;
-        x = a[i];
-        while (i < j){
-            while (i < j && a[j] > x){
-                j--; // 从右向左找第一个小于x的数
-            }
-            if (i < j){
-                a[i] = a[j];
-                i++;
-            }
-            while (i < j && a[i] < x){
-                i++; // 从左向右找第一个大于x的数
-            }
-            if (i < j){
-                a[j] = a[i];
-                j--;
-            }
-        }
-        a[i] = x;
-        quickSort(a,l,i-1);
-        quickSort(a,i+1,r);
+public void quickSort(int[] array, int left,int right) {
+    if (left < right) {
+        int p = partition(array,left,right);
+        quickSort(array,left,p - 1);
+        quickSort(array,p + 1,right);
     }
+}
+
+public int partition(int[] array,int left, int right) {
+    int val = array[left];
+    while (left < right) {
+        while (left < right && array[right] > val) {
+            right -= 1;
+        }
+        if (left < right) {
+            array[left] = array[right];
+            left += 1;
+        }
+        while (left < right && array[left] < val) {
+            left += 1;
+        }
+        if (left < right) {
+            array[right] = array[left];
+            right -= 1;
+        }
+    }
+    array[left] = val;
+    return left;
 }
 ```
 
 - 插入排序
+    - 时间复杂度：O(n^2) O(n) O(n^2) （最坏 最好 平均） 
+    - 空间复杂度：O(1) 
+    = 稳定性：稳定每次都是在前面已排好序的序列中找到适当的位置，只有小的数字会往前插入，所以原来相同的两个数字在排序后相对位置不变
+
 ```java
 public static void insertSort(int[] a , int n ) {
     int i, j, k;
@@ -117,7 +127,10 @@ public void selectionSort(int[] nums) {
 }
 ```
 
-- 归并排序,平均情况和最差情况为O(nlog(n)),存储空间看情况
+- 归并排序,
+    - 时间复杂度：最坏:O(nlog2n) 最好: O(nlog2n) 平均: O(nlog2n)
+    - 空间复杂度：O(n)
+    - 稳定
 ```java
 public void mergeSort(int[] nums, int left, int right) {
     if (left < right) {
