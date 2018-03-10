@@ -27,7 +27,9 @@ public static void bubbleSort2(int [] a , int n){
 
 - 快速排序
     - 最坏:O(n2) 最好: O(nlogn) 平均: O(nlogn) 
-    - 存储空间为O(log(n))
+        - 最坏的情况出现在顺序或者逆序，这样分的时候没法平分
+        - 最好的情况出现在选择的元素正好可以将数组平分，可以选择array[(left+right)/2]的元素作为基准元素
+    - 存储空间为O(nlog(n)),用于递归的方法栈
     - 稳定性：不稳定 快排会将大于等于基准元素的关键词放在基准元素右边
 ```java
 public void quickSort(int[] array, int left,int right) {
@@ -120,7 +122,7 @@ public void selectionSort(int[] nums) {
 ```
 
 - 归并排序,
-    - 时间复杂度：最坏:O(nlog2n) 最好: O(nlog2n) 平均: O(nlog2n)
+    - 时间复杂度：最坏:O(nlogn) 最好: O(nlogn) 平均: O(nlogn)
     - 空间复杂度：O(n)
     - 稳定
 ```java
