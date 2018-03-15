@@ -7,4 +7,5 @@
 ## [4. 二叉查找树](https://github.com/tygxy/DataStructure/blob/master/BinarySearchTree.md)
 ## [5. AVL树](https://github.com/tygxy/DataStructure/blob/master/AVLTree.md)
 ## [6. 排序](https://github.com/tygxy/DataStructure/blob/master/Sort.md)
+## [7. Offer](https://github.com/tygxy/DataStructure/blob/master/Offer.md)
 
